@@ -61,12 +61,14 @@ class _EditDialogState extends State<EditDialog> {
                 flex: 1,
               ),
               CustomInput(
+                key: const Key('editNameKey'),
                 width: size.width * 0.7,
                 controller: widget.nameController,
                 hintText: 'Nome do Produto',
                 validator: Validators.requiredInputField,
               ),
               CustomInput(
+                key: const Key('editPriceKey'),
                 width: size.width * 0.7,
                 controller: widget.priceController,
                 hintText: 'Preço do produto',

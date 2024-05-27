@@ -35,9 +35,9 @@ void main() {
     expect(find.byType(TextFormField), findsNWidgets(2));
     expect(find.byType(ElevatedButton), findsOneWidget);
     expect(find.text('Salvar'), findsOneWidget);
+    await tester.pumpAndSettle();
 
     //ENCONTAR OS ELEMENTOS DA TELA PROFILE:
-    await tester.pumpAndSettle();
     expect(find.byIcon(Icons.person), findsOneWidget);
     await tester.tap(find.byIcon(Icons.person));
     await tester.pumpAndSettle();
@@ -72,7 +72,84 @@ void main() {
     await tester.pumpAndSettle();
 
     //IR PARA TELA DE HOME E EDITAR O PRODUTO CADASTRADO:
+    expect(find.byIcon(Icons.home), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.home));
+    await tester.pumpAndSettle();
+    //vê se tem esse produto novo na tela
+    expect(find.text('Produto 3'), findsOneWidget);
+    expect(find.text(CurrencyUtil.doubleToReal(30.0)), findsOneWidget);
+    //pegar o card pelo texto
+    final newProduct = find.text('Produto 3');
+    final cardOfNewProduct = find.ancestor(
+      of: newProduct,
+      matching: find.byType(Card),
+    );
+    //encontar o botão de editar dentro do card
+    final editButtonFinder = find.descendant(
+      of: cardOfNewProduct,
+      matching: find.byIcon(Icons.edit),
+    );
+    expect(editButtonFinder, findsOneWidget);
+    //clica no editar específico
+    await tester.tap(editButtonFinder);
+    await tester.pumpAndSettle();
+    expect(find.byType(Dialog), findsOneWidget);
+    await tester.enterText(
+      find.byKey(
+        const Key('editNameKey'),
+      ),
+      'Produto Editado',
+    );
+    await tester.enterText(
+      find.byKey(
+        const Key('editPriceKey'),
+      ),
+      '3500',
+    );
+    await tester.tap(find.text('Editar'));
+    await tester.pumpAndSettle();
+    expect(find.byType(Dialog), findsOneWidget);
+    await tester.tap(find.text('Fechar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Produto Editado'), findsOneWidget);
+    expect(find.text(CurrencyUtil.doubleToReal(35.0)), findsOneWidget);
 
-    //EXCLUIR O ÍTEM CADASTRADO:
+    //EXCLUIR O ÍTEM CADASTRADO E EDITADO:
+
+    //encontar card editado
+    final newProductEdited = find.text('Produto Editado');
+    final cardOfNewProductEdited = find.ancestor(
+      of: newProductEdited,
+      matching: find.byType(Card),
+    );
+    //encontar o botão de excluir dentro do card
+    final deleButtonFinder = find.descendant(
+      of: cardOfNewProductEdited,
+      matching: find.byIcon(Icons.delete),
+    );
+    expect(deleButtonFinder, findsOneWidget);
+    await tester.tap(deleButtonFinder);
+    await tester.pumpAndSettle();
+    expect(find.byType(Dialog), findsOneWidget);
+    await tester.tap(find.text('Fechar'));
+    await tester.pumpAndSettle();
+    //encontar apenas dois cards
+    expect(
+      find.byWidgetPredicate(
+        (widget) {
+          //se esse widget é um BoxCard então retorne true
+          if (widget is Card) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      ),
+      //espera se encontrar 2 desse widget
+      findsNWidgets(2),
+    );
+    //espera não encontar mais o card deletado:
+    expect(find.text('Produto Editado'), findsNothing);
+    expect(find.text(CurrencyUtil.doubleToReal(35.0)), findsNothing);
   });
 }
