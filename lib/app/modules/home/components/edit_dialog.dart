@@ -5,7 +5,6 @@ import 'package:app_test1/app/shared/currency_util.dart';
 import 'package:app_test1/app/shared/validators.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class EditDialog extends StatefulWidget {
   final int index;
