@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class BaseScreen extends StatelessWidget {
   final String title;
@@ -11,20 +12,22 @@ class BaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.indigo,
-        centerTitle: true,
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
+    return KeyboardDismissOnTap(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.indigo,
+          centerTitle: true,
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
           ),
         ),
+        body: child,
       ),
-      body: child,
     );
   }
 }

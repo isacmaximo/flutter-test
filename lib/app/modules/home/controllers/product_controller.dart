@@ -1,5 +1,7 @@
 import 'package:app_test1/app/models/product_store.dart';
 import 'package:app_test1/app/modules/home/components/edit_dialog.dart';
+import 'package:app_test1/app/shared/currency_util.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'product_controller.g.dart';
@@ -20,25 +22,56 @@ abstract class ProductControllerBase with Store {
     ),
   ]);
 
+  //Edit
+  final nameController = TextEditingController();
+  final priceController = MoneyMaskedTextController(
+    decimalSeparator: ',',
+    thousandSeparator: '.',
+    leftSymbol: 'R\$ ',
+  );
+
+  @action
+  void clearAllControllers() {
+    nameController.clear();
+    priceController.clear();
+  }
+
   @action
   void removeProduct(int index) {
     listPrduct.removeAt(index);
   }
 
-  //Edit
-  TextEditingController nameController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
+  @action
+  void editProdut(int index, ProductStore product) {
+    listPrduct[index] = product;
+    clearAllControllers();
+  }
+
+  @action
+  void addProduct() {
+    listPrduct.add(
+      ProductStore(
+        name: nameController.text,
+        price: CurrencyUtil.parseCurrency(
+          priceController.text,
+        ),
+      ),
+    );
+    clearAllControllers();
+  }
 
   showDialogToEdit(BuildContext context, int index) async {
     await showDialog(
       context: context,
       builder: (context) {
         return EditDialog(
+          index: index,
           productStore: listPrduct[index],
           nameController: nameController,
           priceController: priceController,
+          onPressedEdit: editProdut,
         );
       },
-    );
+    ).then((value) => clearAllControllers());
   }
 }

@@ -25,6 +25,53 @@ mixin _$ProductController on ProductControllerBase, Store {
     });
   }
 
+  late final _$ProductControllerBaseActionController =
+      ActionController(name: 'ProductControllerBase', context: context);
+
+  @override
+  void clearAllControllers() {
+    final _$actionInfo = _$ProductControllerBaseActionController.startAction(
+        name: 'ProductControllerBase.clearAllControllers');
+    try {
+      return super.clearAllControllers();
+    } finally {
+      _$ProductControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeProduct(int index) {
+    final _$actionInfo = _$ProductControllerBaseActionController.startAction(
+        name: 'ProductControllerBase.removeProduct');
+    try {
+      return super.removeProduct(index);
+    } finally {
+      _$ProductControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void editProdut(int index, ProductStore product) {
+    final _$actionInfo = _$ProductControllerBaseActionController.startAction(
+        name: 'ProductControllerBase.editProdut');
+    try {
+      return super.editProdut(index, product);
+    } finally {
+      _$ProductControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void addProduct() {
+    final _$actionInfo = _$ProductControllerBaseActionController.startAction(
+        name: 'ProductControllerBase.addProduct');
+    try {
+      return super.addProduct();
+    } finally {
+      _$ProductControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
