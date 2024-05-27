@@ -12,7 +12,11 @@ class EditDialog extends StatefulWidget {
   final ProductStore productStore;
   final TextEditingController nameController;
   final MoneyMaskedTextController priceController;
-  final void Function(int index, ProductStore product)? onPressedEdit;
+  final void Function(
+    int index,
+    ProductStore product,
+    BuildContext context,
+  )? onPressedEdit;
   final _formKey = GlobalKey<FormState>();
   EditDialog({
     super.key,
@@ -84,8 +88,8 @@ class _EditDialogState extends State<EditDialog> {
                           widget.priceController.text,
                         ),
                       ),
+                      context,
                     );
-                    Modular.to.pop();
                   }
                 },
               ),

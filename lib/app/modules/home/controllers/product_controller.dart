@@ -1,8 +1,10 @@
 import 'package:app_test1/app/models/product_store.dart';
 import 'package:app_test1/app/modules/home/components/edit_dialog.dart';
+import 'package:app_test1/app/modules/home/components/info_dialog.dart';
 import 'package:app_test1/app/shared/currency_util.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 part 'product_controller.g.dart';
 
@@ -37,18 +39,21 @@ abstract class ProductControllerBase with Store {
   }
 
   @action
-  void removeProduct(int index) {
+  void removeProduct(int index, BuildContext context) {
     listPrduct.removeAt(index);
+    showInfo(context, 'Produto removido com sucesso!');
   }
 
   @action
-  void editProdut(int index, ProductStore product) {
+  void editProdut(int index, ProductStore product, BuildContext context) {
     listPrduct[index] = product;
     clearAllControllers();
+    Modular.to.pop();
+    showInfo(context, 'Produto editado com sucesso!');
   }
 
   @action
-  void addProduct() {
+  void addProduct(BuildContext context) {
     listPrduct.add(
       ProductStore(
         name: nameController.text,
@@ -58,6 +63,16 @@ abstract class ProductControllerBase with Store {
       ),
     );
     clearAllControllers();
+    showInfo(context, 'Produto salvo com sucesso!');
+  }
+
+  showInfo(BuildContext context, String message) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return InfoDialog(info: message);
+      },
+    );
   }
 
   showDialogToEdit(BuildContext context, int index) async {

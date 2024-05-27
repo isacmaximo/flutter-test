@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                     await _controller.showDialogToEdit(context, index);
                   },
                   onPressedDelete: () {
-                    _controller.removeProduct(index);
+                    _controller.removeProduct(index, context);
                   },
                 );
               },

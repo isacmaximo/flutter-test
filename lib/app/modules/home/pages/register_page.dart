@@ -1,4 +1,3 @@
-import 'package:app_test1/app/models/product.dart';
 import 'package:app_test1/app/modules/home/components/base_screen.dart';
 import 'package:app_test1/app/modules/home/components/custom_button.dart';
 import 'package:app_test1/app/modules/home/components/custom_input.dart';
@@ -40,8 +39,9 @@ class RegisterPage extends StatelessWidget {
                 width: size.width * 0.9,
                 title: 'Salvar',
                 onPressed: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
                   if (_formKey.currentState!.validate()) {
-                    _controller.addProduct();
+                    _controller.addProduct(context);
                   }
                 },
               ),

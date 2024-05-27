@@ -40,33 +40,33 @@ mixin _$ProductController on ProductControllerBase, Store {
   }
 
   @override
-  void removeProduct(int index) {
+  void removeProduct(int index, BuildContext context) {
     final _$actionInfo = _$ProductControllerBaseActionController.startAction(
         name: 'ProductControllerBase.removeProduct');
     try {
-      return super.removeProduct(index);
+      return super.removeProduct(index, context);
     } finally {
       _$ProductControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void editProdut(int index, ProductStore product) {
+  void editProdut(int index, ProductStore product, BuildContext context) {
     final _$actionInfo = _$ProductControllerBaseActionController.startAction(
         name: 'ProductControllerBase.editProdut');
     try {
-      return super.editProdut(index, product);
+      return super.editProdut(index, product, context);
     } finally {
       _$ProductControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void addProduct() {
+  void addProduct(BuildContext context) {
     final _$actionInfo = _$ProductControllerBaseActionController.startAction(
         name: 'ProductControllerBase.addProduct');
     try {
-      return super.addProduct();
+      return super.addProduct(context);
     } finally {
       _$ProductControllerBaseActionController.endAction(_$actionInfo);
     }
