@@ -15,7 +15,7 @@ abstract class HomeControllerBase with Store {
   List<Widget> pages = [
     HomePage(),
     RegisterPage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   @action
