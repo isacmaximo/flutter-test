@@ -23,12 +23,14 @@ class RegisterPage extends StatelessWidget {
             children: [
               const Spacer(flex: 1),
               CustomInput(
+                key: const Key('registerNameKey'),
                 width: size.width * 0.9,
                 controller: _controller.nameController,
                 hintText: 'Nome do Produto',
                 validator: Validators.requiredInputField,
               ),
               CustomInput(
+                key: const Key('registerPriceKey'),
                 width: size.width * 0.9,
                 controller: _controller.priceController,
                 hintText: 'Preço do produto',
